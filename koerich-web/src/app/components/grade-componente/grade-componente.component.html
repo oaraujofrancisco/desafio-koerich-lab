@@ -1,0 +1,19 @@
+<mat-card class="card-produto">
+    <mat-card-header class="d-flex justify-content-around">
+        <mat-card-title>{{produto.produtoNome}}</mat-card-title>
+        <mat-card-subtitle>Valor: {{produto.valor | currency: "BRL"}}</mat-card-subtitle>
+    </mat-card-header>
+    <div *ngIf="produto.imagem; else semImagem">
+        <img class="img-card" mat-card-image src="assets/imgs/{{produto.imagem}}">
+    </div>
+    <mat-card-content>
+        <mat-chip-list class="d-flex justify-content-around">
+            <mat-chip color="primary" selected>Quantidade: {{produto.quantidadeProduto}}</mat-chip>
+            <mat-chip color="accent" selected>Defeitos: {{produto.defeito}}</mat-chip>
+        </mat-chip-list>
+    </mat-card-content>
+</mat-card>
+
+<ng-template #semImagem>
+    <img class="img-card" mat-card-image src="assets/imgs/no-image.jpg">
+</ng-template>

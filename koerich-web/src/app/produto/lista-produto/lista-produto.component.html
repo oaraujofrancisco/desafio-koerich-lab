@@ -1,0 +1,61 @@
+<div class="d-flex align-items-center justify-content-around mb-3">
+    <button (click)="cadastrarNovoProduto()" color="primary" mat-raised-button>
+        Novo
+    </button>
+    <mat-form-field class="col-9 col-md-4" appearance="standard">
+        <mat-label>Digite aqui o nome do produto</mat-label>
+        <input matInput (keyup)="aplicarFiltro($event)" placeholder="Bola">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Filtrar por quantidade de defeito:</mat-label>
+        <mat-select [(ngModel)]="quantidadeDefeitos" (selectionChange)="onSelect()" name="value">
+            <mat-option [value]="0">Todos</mat-option>
+            <mat-option [value]="51">Acima de 50</mat-option>
+            <mat-option [value]="76">Acima de 75</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Ordenar por:</mat-label>
+        <mat-select [(ngModel)]="ordenacaoProdutos" (selectionChange)="onSelect()" name="value">
+            <mat-option [value]="''">Selecione uma opção</mat-option>
+            <mat-option [value]="'produtoNome'">Nome</mat-option>
+            <mat-option [value]="'quantidadeProduto'">Quantidade</mat-option>
+            <mat-option [value]="'defeito'">Defeito</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Visualizar por:</mat-label>
+        <mat-select [(ngModel)]="estiloVisualizao" name="value">
+            <mat-option [value]="'tabela'">Tabela</mat-option>
+            <mat-option [value]="'grade'">Grade</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</div>
+
+<div *ngIf="produtos$ | async as produtos; else carregando">
+    <div *ngIf="estiloVisualizao === 'tabela'; else grade">
+        <app-tabela-componente
+            [produtos]="produtos"
+        ></app-tabela-componente>
+    </div>
+</div>
+
+<ng-template class="teste" #grade>
+    <mat-grid-list cols="{{numeroColunasGrid}}" rowHeight="{{proporcaoColunasGrid}}" (window:resize)="onResize($event)">
+        <mat-grid-tile *ngFor="let produto of produtos$ | async">
+            <app-grade-componente
+                [produto]="produto">
+            </app-grade-componente>
+        </mat-grid-tile>
+    </mat-grid-list>
+</ng-template>
+
+
+<ng-template #carregando>
+    <div class="container d-flex justify-content-center">
+        <mat-spinner color="accent"></mat-spinner>
+    </div>
+</ng-template>

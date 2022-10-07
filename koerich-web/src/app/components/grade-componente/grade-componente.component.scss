@@ -1,0 +1,25 @@
+.card-produto {
+    width: 500px;
+    height: 300px;
+    margin: auto;
+
+    .card-produto:after {
+        display: inline-block;
+    }
+
+    mat-card-title {
+        margin-bottom: 1rem;
+    }
+
+    .img-card {
+        margin: auto auto 1rem;
+        border-radius: 3rem;
+        align-items: center;
+        height: 150px;
+        width: auto;
+    }
+
+    mat-chip {
+        padding: 1.2rem;
+    }
+}

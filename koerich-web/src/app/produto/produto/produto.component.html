@@ -1,0 +1,50 @@
+<div *ngIf="isCarregado else carregando">
+    <div class="w-100 mb-3">
+        <button (click)="voltarListaProduto()" class="" color="warn" mat-raised-button>
+            Voltar
+        </button>
+    </div>
+
+    <mat-card>
+        <mat-card-title class="mb-3">{{"Cadastrar novo produto"}}
+        </mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="produtoForm" class="form-group row">
+                <mat-form-field class="col-6" appearance="fill">
+                    <mat-label>Nome do Produto</mat-label>
+                    <input formControlName="produtoNome" matInput>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="col-2">
+                    <mat-label>Quantidade</mat-label>
+                    <input formControlName="quantidadeProduto" matInput type="number">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="col-2">
+                    <mat-label>Defeito</mat-label>
+                    <input formControlName="defeito" matInput type="number">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="col-2">
+                    <mat-label>Valor</mat-label>
+                    <input formControlName="valor" matInput type="number">
+                    <span matPrefix>R$&nbsp;</span>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions class="d-flex flex-row-reverse">
+            <button (click)="salvarProduto()" [disabled]="produtoForm.invalid" class="mb-2 mx-2"
+                    color="primary"
+                    mat-raised-button>Salvar
+            </button>
+            <button (click)="atualizarProduto()" [disabled]="produtoForm.invalid" class="mb-2 mx-2"
+                    color="primary"
+                    mat-raised-button>Atualizar
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+
+<ng-template #carregando>
+    <div class="d-flex justify-content-center">
+        <mat-spinner color="accent"></mat-spinner>
+    </div>
+</ng-template>
